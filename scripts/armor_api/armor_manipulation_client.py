@@ -59,6 +59,45 @@ class ArmorManipulationClient(object):
         else:
             raise ArmorServiceInternalError(res.error_description, res.exit_code)
 
+    
+  def disj_inds_of_class(self, class_name):
+    """
+    Disjoint all individuals of a class.
+
+    Args:
+    class_name (str): class of the individuals to disjoint.
+
+    Returns:
+    bool: True if ontology is consistent, else False
+
+    Raises:
+    armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
+    armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
+
+    Note:
+    It returns the boolean consistency state of the ontology. This value is not updated to the last operation
+    if you are working in buffered reasoner or manipulation mode!
+    
+    """
+    try:
+        res = self._client.call('DISJOINT', 'IND', 'CLASS', [class_name])
+
+    except rospy.ServiceException as e:
+        raise ArmorServiceCallError(
+     "Service call failed upon adding individual {0} to class {1}: {2}".format(ind_name, class_name, e))
+
+    except rospy.ROSException:
+        raise ArmorServiceCallError("Cannot reach ARMOR client: Timeout Expired. Check if ARMOR is running.")
+
+    if res.success:
+        return res.is_consistent
+    else:
+        raise ArmorServiceInternalError(res.error_description, res.exit_code)
+    
+    
+    
+    
+    
     def add_objectprop_to_ind(self, objectprop_name, ind_name, value_obj_name):
         """
         Add an object property to an individual. If the object property to be assigned does not exist, it will be created.
