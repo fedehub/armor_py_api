@@ -60,39 +60,38 @@ class ArmorManipulationClient(object):
             raise ArmorServiceInternalError(res.error_description, res.exit_code)
 
     
-  def disj_inds_of_class(self, class_name):
-    """
-    Disjoint all individuals of a class.
+    def disj_inds_of_class(self, class_name):
+        """
+        Disjoint all individuals of a class.
 
-    Args:
-    class_name (str): class of the individuals to disjoint.
+        Args:
+        class_name (str): class of the individuals to disjoint.
 
-    Returns:
-    bool: True if ontology is consistent, else False
+        Returns:
+        bool: True if ontology is consistent, else False
 
-    Raises:
-    armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
-    armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
+        Raises:
+        armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
+        armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
 
-    Note:
-    It returns the boolean consistency state of the ontology. This value is not updated to the last operation
-    if you are working in buffered reasoner or manipulation mode!
+        Note:
+        It returns the boolean consistency state of the ontology. This value is not updated to the last operation
+        if you are working in buffered reasoner or manipulation mode!
     
-    """
-    try:
-        res = self._client.call('DISJOINT', 'IND', 'CLASS', [class_name])
+        """
+        try:
+            res = self._client.call('DISJOINT', 'IND', 'CLASS', [class_name])
 
-    except rospy.ServiceException as e:
-        raise ArmorServiceCallError(
-     "Service call failed upon adding individual {0} to class {1}: {2}".format(ind_name, class_name, e))
+        except rospy.ServiceException as e:
+            raise ArmorServiceCallError("Service call failed upon adding individual {0} to class {1}: {2}".format(ind_name, class_name, e))
 
-    except rospy.ROSException:
-        raise ArmorServiceCallError("Cannot reach ARMOR client: Timeout Expired. Check if ARMOR is running.")
+        except rospy.ROSException:
+            raise ArmorServiceCallError("Cannot reach ARMOR client: Timeout Expired. Check if ARMOR is running.")
 
-    if res.success:
-        return res.is_consistent
-    else:
-        raise ArmorServiceInternalError(res.error_description, res.exit_code)
+        if res.success:
+            return res.is_consistent
+        else:
+            raise ArmorServiceInternalError(res.error_description, res.exit_code)
     
     
     
