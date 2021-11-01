@@ -65,18 +65,18 @@ class ArmorManipulationClient(object):
         Disjoint all individuals of a class.
 
         Args:
-        class_name (str): class of the individuals to disjoint.
+            class_name (str): class of the individuals to disjoint.
 
         Returns:
-        bool: True if ontology is consistent, else False
+            bool: True if ontology is consistent, else False
 
         Raises:
-        armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
-        armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
+            armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
+            armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
 
         Note:
-        It returns the boolean consistency state of the ontology. This value is not updated to the last operation
-        if you are working in buffered reasoner or manipulation mode!
+            It returns the boolean consistency state of the ontology. This value is not updated to the last operation
+            if you are working in buffered reasoner or manipulation mode!
     
         """
         try:
