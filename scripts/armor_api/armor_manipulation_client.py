@@ -47,7 +47,7 @@ class ArmorManipulationClient(object):
         try:
             res = self._client.call('ADD', 'IND', 'CLASS', [ind_name, class_name])
     
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             raise ArmorServiceCallError(
                 "Service call failed upon adding individual {0} to class {1}: {2}".format(ind_name, class_name, e))
     
@@ -65,18 +65,18 @@ class ArmorManipulationClient(object):
         Disjoint all individuals of a class.
 
         Args:
-            class_name (str): class of the individuals to disjoint.
+        class_name (str): class of the individuals to disjoint.
 
         Returns:
-            bool: True if ontology is consistent, else False
+        bool: True if ontology is consistent, else False
 
         Raises:
-            armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
-            armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
+        armor_api.exceptions.ArmorServiceCallError: if call to ARMOR fails
+        armor_api.exceptions.ArmorServiceInternalError: if ARMOR reports an internal error
 
         Note:
-            It returns the boolean consistency state of the ontology. This value is not updated to the last operation
-            if you are working in buffered reasoner or manipulation mode!
+        It returns the boolean consistency state of the ontology. This value is not updated to the last operation
+        if you are working in buffered reasoner or manipulation mode!
     
         """
         try:
@@ -441,7 +441,7 @@ class ArmorManipulationClient(object):
         try:
             res = self._client.call('REMOVE', 'DATAPROP', 'IND', [dataprop_name, ind_name, value_type, value])
 
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             raise ArmorServiceCallError(
                 "Service call failed upon removing data property {0} to individual {1}: {2}".format(dataprop_name,ind_name, e))
 
