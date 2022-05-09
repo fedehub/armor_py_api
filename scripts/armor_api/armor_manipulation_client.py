@@ -481,7 +481,7 @@ class ArmorManipulationClient(object):
         try:
             res = self._client.call('REMOVE', 'OBJECTPROP', 'IND', [objectprop_name, ind_name, value])
 
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             raise ArmorServiceCallError(
                 "Service call failed upon removing object property {0} to individual {1}: {2}".format(objectprop_name, ind_name, e))
 
@@ -548,7 +548,7 @@ class ArmorManipulationClient(object):
         try:
             res = self._client.call('REMOVE', 'IND','CLASS', [ind_name,class_name])
 
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             raise ArmorServiceCallError(
                 "Service call failed upon adding individual {0}: {1}".format(ind_name, e))
 
